@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import IconWork from "./assets/icon-work.svg";
 import IconPlay from "./assets/icon-play.svg";
 import IconStudy from "./assets/icon-study.svg";
@@ -7,6 +7,7 @@ import IconExercise from "./assets/icon-exercise.svg";
 import IconSocial from "./assets/icon-social.svg";
 import IconSelfCare from "./assets/icon-self-care.svg";
 import IconJeremy from "./assets/image-jeremy.png";
+import IconEllipsis from "./assets/icon-ellipsis.svg";
 
 let selectedOption = ref('daily');
 
@@ -126,11 +127,21 @@ const activities = ref([
     }
   }
 ]);
+const previously = computed(() => {
+  switch (selectedOption.value) {
+    case 'daily':
+      return 'Yesterday';
+    case 'weekly':
+      return 'Last week';
+    case 'monthly':
+      return 'Last month';
+  }
+});
 </script>
 
 <template>
   <div class="grid-container">
-    <div class="grid-item item1">
+    <div class="grid-item">
       <div class="card-details">
         <img class="avatar" :src="IconJeremy" alt="avatar">
         <p>Report for</p><h2>Jeremy Robson</h2>
@@ -144,13 +155,13 @@ const activities = ref([
     <div class="grid-item" v-for="activity in activities" :key="activity.title" :style="{ backgroundImage: `url(${activity.iconUrl})`, backgroundColor: activity.backgroundColor }">
       <div class="card-background"></div>
       <div class="card-details">
-        <h3>{{ activity.title }}</h3>
-        <div v-if="selectedOption">
+        <div class="card-header">
+        <h3>{{ activity.title }}</h3><img class="dots" :src="IconEllipsis" alt="menu"></div>
+        <div v-if="selectedOption" class="card-time">
           <h1>{{ activity.timeframes[selectedOption].current }}hrs</h1>
-          <p>Previous - {{ activity.timeframes[selectedOption].previous }}hrs</p>
+          <p> {{ previously }} - {{ activity.timeframes[selectedOption].previous }}hrs</p>
         </div>
       </div>
     </div>
   </div>
 </template>
-
