@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* 
+
+good for 880px-max
+TODO
+fix: 320 - 980 !!!!!
+fix item 1 for smaller screens
+fix items for smaller screens
+add the dots
+*/
+
+body {
+  background-color: hsl(226, 43%, 10%);
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+#app {  
+  height: 100%;
+  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+h1, h2, h3, p {
+  font-family: Rubik;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 1rem;
+  color: aliceblue;
+}
+h1 {
+  font-size: 54px;
+}
+h2 {
+  font-size: 44px;
+}
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+p {
+  font-size: 16px;
+  color: hsl(236, 100%, 87%);
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  justify-content: center;
+  padding-inline: 1rem;
+}
+.grid-item {
+  border-radius: 5%;
+  background-position: calc(100% - 1rem) -0.5rem;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  align-self: baseline;
+}
+.grid-item:not(.item1):hover {
+  cursor: pointer;
+  .card-details {
+    background-color: hsl(235, 42%, 53%);
+  }
+}
+.card-background {
+  height: 3rem;
+  padding-inline: 2rem;
+}
+.card-details {
+  margin: 0;
+  padding: 0;
+  border-radius: 5%;
+  background-color: hsl(235, 46%, 20%);
+  padding: 2rem;
+}
+.option {
+  color: hsl(235, 45%, 61%);
+  margin-right: 10px;
+}
+.option:hover {
+  color: white;
+  cursor: pointer;
+}
+.active {
+  color: white;
+}
+.item1 {
+  grid-row: span 2;
+  background-color: hsl(235, 46%, 20%);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-self: flex-end;
+  height: 100%;
+}
+.item1 h3 {
+  font-weight: 300;
+}
+.item1 .card-details {
+  background-color: hsl(246, 80%, 60%);
+  flex: 1;
+}
+.item1 > .card-background {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  height: fit-content;
+}
+.avatar {
+  height: 5rem;
+  aspect-ratio: 1;
+  border: 0.2rem solid aliceblue;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 980px) {
+  body {
+    height: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
