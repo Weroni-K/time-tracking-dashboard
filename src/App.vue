@@ -1,3 +1,30 @@
+<template>
+  <div class="grid-container">
+    <div class="grid-item">
+      <div class="card-details">
+        <img class="avatar" :src="IconJeremy" alt="avatar">
+        <p>Report for</p><h2>Jeremy Robson</h2>
+      </div>
+      <div class="card-background">
+        <h3><span @click="selectedOption = 'daily'" :class="{ option: true, active: selectedOption === 'daily' }">Daily</span></h3>
+        <h3><span @click="selectedOption = 'weekly'" :class="{ option: true, active: selectedOption === 'weekly' }">Weekly</span></h3>
+        <h3><span @click="selectedOption = 'monthly'" :class="{ option: true, active: selectedOption === 'monthly' }">Monthly</span></h3>
+      </div>
+    </div>
+    <div class="grid-item" v-for="activity in activities" :key="activity.title" :style="{ backgroundImage: `url(${activity.iconUrl})`, backgroundColor: activity.backgroundColor }">
+      <div class="card-background"></div>
+      <div class="card-details">
+        <div class="card-header">
+        <h3>{{ activity.title }}</h3><img class="dots" :src="IconEllipsis" alt="menu"></div>
+        <div v-if="selectedOption" class="card-time">
+          <h1>{{ activity.timeframes[selectedOption].current }}hrs</h1>
+          <p> {{ previously }} - {{ activity.timeframes[selectedOption].previous }}hrs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, computed } from 'vue';
 import IconWork from "./assets/icon-work.svg";
@@ -130,38 +157,13 @@ const activities = ref([
 const previously = computed(() => {
   switch (selectedOption.value) {
     case 'daily':
-      return 'Yesterday';
+      return 'Yesterday'
     case 'weekly':
-      return 'Last week';
+      return 'Last week'
     case 'monthly':
-      return 'Last month';
+      return 'Last month'
+    default:
+      return 'Unknown'
   }
-});
+})
 </script>
-
-<template>
-  <div class="grid-container">
-    <div class="grid-item">
-      <div class="card-details">
-        <img class="avatar" :src="IconJeremy" alt="avatar">
-        <p>Report for</p><h2>Jeremy Robson</h2>
-      </div>
-      <div class="card-background">
-        <h3><span @click="selectedOption = 'daily'" :class="{ option: true, active: selectedOption === 'daily' }">Daily</span></h3>
-        <h3><span @click="selectedOption = 'weekly'" :class="{ option: true, active: selectedOption === 'weekly' }">Weekly</span></h3>
-        <h3><span @click="selectedOption = 'monthly'" :class="{ option: true, active: selectedOption === 'monthly' }">Monthly</span></h3>
-      </div>
-    </div>
-    <div class="grid-item" v-for="activity in activities" :key="activity.title" :style="{ backgroundImage: `url(${activity.iconUrl})`, backgroundColor: activity.backgroundColor }">
-      <div class="card-background"></div>
-      <div class="card-details">
-        <div class="card-header">
-        <h3>{{ activity.title }}</h3><img class="dots" :src="IconEllipsis" alt="menu"></div>
-        <div v-if="selectedOption" class="card-time">
-          <h1>{{ activity.timeframes[selectedOption].current }}hrs</h1>
-          <p> {{ previously }} - {{ activity.timeframes[selectedOption].previous }}hrs</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
